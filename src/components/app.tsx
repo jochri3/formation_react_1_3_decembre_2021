@@ -47,6 +47,11 @@ const contacts = [
 ];
 
 const App = () => {
+  const deletContact = (id: string): void => {
+    const index = contacts.findIndex((contact) => contact.id === id);
+    contacts.splice(index, 1);
+    console.log("Après suppression : ", contacts);
+  };
   return (
     <>
       <h1>Liste de contacts</h1>
@@ -58,6 +63,7 @@ const App = () => {
             <th>Email</th>
             <th>Position</th>
             <th>Numéro de Téléphone</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -68,6 +74,11 @@ const App = () => {
               <td>{contact.email}</td>
               <td>{contact.position}</td>
               <td>{contact.phone_number}</td>
+              <td>
+                <button onClick={() => deletContact(contact.id)}>
+                  Supprimer
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
