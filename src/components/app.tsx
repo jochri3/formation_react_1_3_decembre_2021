@@ -1,4 +1,6 @@
-const contacts = [
+import { useState } from "react";
+
+const initialState = [
   {
     id: "607cf129311fcb0015dd6e89",
     first_name: "Yukihiro",
@@ -47,10 +49,12 @@ const contacts = [
 ];
 
 const App = () => {
+  const [contacts, setContacts] = useState(initialState);
   const deletContact = (id: string): void => {
-    const index = contacts.findIndex((contact) => contact.id === id);
-    contacts.splice(index, 1);
-    console.log("Après suppression : ", contacts);
+    const newState = [...contacts];
+    const index = newState.findIndex((contact) => contact.id === id);
+    newState.splice(index, 1);
+    setContacts(newState);
   };
   return (
     <>
@@ -68,7 +72,7 @@ const App = () => {
         </thead>
         <tbody>
           {contacts.map((contact) => (
-            <tr>
+            <tr key={contact.id}>
               <td>{contact.last_name}</td>
               <td>{contact.first_name}</td>
               <td>{contact.email}</td>
