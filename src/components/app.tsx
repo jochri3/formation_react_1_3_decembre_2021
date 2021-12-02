@@ -6,11 +6,14 @@ import ContactsList from "./contacts-list";
 
 const App = () => {
   const [contacts, setContacts] = useState<IContact[]>([]);
-  const deleteContact = (id: string): void => {
-    const newState = [...contacts];
-    const index = newState.findIndex(({ id: ID }) => ID === id);
-    newState.splice(index, 1);
-    setContacts(newState);
+  const [updated, setUpdate] = useState(0);
+  const deleteContact = async (id: string): Promise<any> => {
+    // const newState = [...contacts];
+    // const index = newState.findIndex(({ id: ID }) => ID === id);
+    // newState.splice(index, 1);
+    // setContacts(newState);
+    await axios.delete(`http://localhost:5000/contacts/${id}`);
+    setUpdate(updated + 1);
   };
 
   const fetchContacts = async () => {
@@ -25,7 +28,7 @@ const App = () => {
       const contacts = await fetchContacts();
       setContacts(contacts);
     })();
-  }, []);
+  }, [updated]);
 
   return (
     <>
