@@ -1,25 +1,18 @@
 import { useState, useEffect } from "react";
+import ContactAPI from "../config/contact.api";
 import IContact from "../interfaces/i-contact";
-
-import axios from "axios";
 import ContactsList from "./contacts-list";
 
 const App = () => {
   const [contacts, setContacts] = useState<IContact[]>([]);
   const [updated, setUpdate] = useState(0);
   const deleteContact = async (id: string): Promise<any> => {
-    // const newState = [...contacts];
-    // const index = newState.findIndex(({ id: ID }) => ID === id);
-    // newState.splice(index, 1);
-    // setContacts(newState);
-    await axios.delete(`http://localhost:5000/contacts/${id}`);
+    await ContactAPI.delete(`/${id}`);
     setUpdate(updated + 1);
   };
 
   const fetchContacts = async () => {
-    const contacts = await axios.get<IContact[]>(
-      "http://localhost:5000/contacts"
-    );
+    const contacts = await ContactAPI.get<IContact[]>("");
     return contacts.data;
   };
 
