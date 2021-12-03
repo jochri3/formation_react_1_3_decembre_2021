@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import ContactAPI from "../config/contact.api";
-import IContact from "../interfaces/i-contact";
-import ContactsList from "./contacts-list";
+import ContactsList from "../../components/contacts/contacts-list";
+import ContactAPI from "../../config/contact.api";
+import IContact from "../../interfaces/i-contact";
 
-const App = () => {
+const ContactsIndex = () => {
   const [contacts, setContacts] = useState<IContact[]>([]);
   const [updated, setUpdate] = useState(0);
   const deleteContact = async (id: string): Promise<any> => {
@@ -31,4 +31,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default ContactsIndex;
